@@ -45,10 +45,10 @@
     //   - await는 async 함수 내에서만 작성할 수 있고 비동기 작업의 완료를 기다린다.
     const fetchTeams = async (page) => {
         try {
-            const response = await apiClient.get(`/team?page=${page}&size=10`);
+            const response = await apiClient.get(`/team?page=${page-1}&size=10`);
 
             teams.value = response.data.content;
-            pageInfo.totalCount = response.data.totalCount;
+            pageInfo.totalCount = response.data.totalElements;
             pageInfo.listLimit = 10;
         } catch (error) {
             

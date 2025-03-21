@@ -20,7 +20,6 @@
     const pageInfo = reactive({
         // 값을 정수로 변환하고 실패하면 1을 기본값으로 사용
         currentPage: parseInt(currentRoute.query.page) || 1,
-        currentTab: 'received',  // 기본적으로 받은 쪽지 목록
         totalCount: 0, // 전체 데이터 수
         pageLimit: 5, // 페이지네이션에 보이는 페이지의 수
         listLimit: 0 // 한 페이지에 표시될 리스트의 수
@@ -44,13 +43,12 @@
     //   - 직접 axios를 사용할 때와 비교해 예외 처리가 간결해진다.
     //   - async는 비동기 작업을 포함하는 함수의 앞부분에 작성한다.
     //   - await는 async 함수 내에서만 작성할 수 있고 비동기 작업의 완료를 기다린다.
-    const fetchProjects = async (page, tab) => {
+    const fetchProjects = async (page) => {
         try {
-            const response = await apiClient.get(`/projects/list/${tab}?page=${page - 1}&size=10&sort=no,desc`);
+            const response = await apiClient.get(`/project?page=${page - 1}&size=10`);
 
             projects.value = response.data.content;
-            pageInfo.totalCount = response.data.totalCount;
-            pageInfo.currentTab = tab;
+            pageInfo.totalCount = response.data.totalElements;
             pageInfo.listLimit = 10;
         } catch (error) {
             
@@ -76,11 +74,11 @@
     onBeforeRouteUpdate((to, form) => {
         pageInfo.currentPage = parseInt(to.query.page) || 1;
 
-        fetchProjects(pageInfo.currentPage, pageInfo.currentTab);
+        fetchProjects(pageInfo.currentPage);
     });
 
     onMounted(() => {
-        fetchProjects(pageInfo.currentPage, pageInfo.currentTab);
+        fetchProjects(pageInfo.currentPage);
     });
 </script>
 

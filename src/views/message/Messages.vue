@@ -50,7 +50,7 @@
 
             console.log(response);
             messages.value = response.data.content;
-            pageInfo.totalCount = response.data.totalCount;
+            pageInfo.totalCount = response.data.totalElements;
             pageInfo.currentTab = tab;
             pageInfo.listLimit = 10;
         } catch (error) {
