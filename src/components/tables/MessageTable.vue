@@ -11,14 +11,16 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="message in messages" :key="message.no">
+            <tr v-for="message in messages" :key="message.no"
+                @click.stop="emit('item-click', message.no)">
                 <td>{{ message.no }}</td>
                 <td>{{ message.senderId }}</td>
-                <td>{{ message.reveiverId }}</td>
-                <td>{{ message.sentAt }}</td>
+                <td>{{ message.receiverId }}</td>
+                <td>{{ message.sendAt }}</td>
                 <td>{{ message.content }}</td>
                 <td>
-                    <button type="button" class="btn btn-outline-danger">삭제</button>
+                    <button type="button" class="btn btn-outline-danger"
+                        @click.stop="confirmDelete(message.no)">삭제</button>
                 </td>
             </tr>
         </tbody>
@@ -32,4 +34,12 @@
             required: true
         }
     });
+
+    const emit = defineEmits(['item-click', 'delete-message']);
+
+    const confirmDelete = (no) => {
+        if (confirm('정말로 삭제하시겠습니까?')) {
+            emit('delete-message', no);
+        }
+    }
 </script>

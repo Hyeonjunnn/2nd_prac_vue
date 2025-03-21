@@ -35,6 +35,9 @@ export const useAuthStore = defineStore('auth', () => {
                 userInfo.username = parseToken.username;
                 userInfo.role = parseToken.role;
 
+                console.log('로그인 성공');
+                console.log('username: ', userInfo.username);
+                console.log('role: ', userInfo.role);
                 router.push({name: 'home'});
             }
         } catch (error) {

@@ -1,6 +1,7 @@
 <template>
     <main>
-        <MessageTable :messages="messages"/>
+        <MessageTable :messages="messages"
+            @item-click="itemClick" @delete-message="deleteMessage"/>
         <Pagination :pageInfo="pageInfo" 
             @change-page="changePage"/>
     </main>
@@ -10,7 +11,6 @@
     import apiClient from '@/api';
     import { onMounted, reactive, ref, watch } from 'vue';
     import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
-    // import DepartmentTable from '@/components/tables/DepartmentTable.vue';
     import MessageTable from '@/components/tables/MessageTable.vue';
     import Pagination from '@/components/common/Pagination.vue';
 
@@ -46,7 +46,7 @@
     //   - await는 async 함수 내에서만 작성할 수 있고 비동기 작업의 완료를 기다린다.
     const fetchMessages = async (page, tab) => {
         try {
-            const response = await apiClient.get(`/messages/list/${tab}?page=${page - 1}&size=10&sort=no,desc`);
+            const response = await apiClient.get(`/messages?page=${page - 1}&size=10&sort=no,desc&type=${tab}`);
 
             console.log(response);
             messages.value = response.data.content;
@@ -54,8 +54,13 @@
             pageInfo.currentTab = tab;
             pageInfo.listLimit = 10;
         } catch (error) {
-            
-            console.log(error);
+            if (error.response.data.code === 404) {
+                alert(error.response.data.message);
+
+                router.push({name: 'messages'});
+            } else {
+                alert('쪽지 목록을 불러오는 중에 오류가 발생했습니다.');
+            }
         }
     }
 
@@ -64,6 +69,25 @@
             router.push({name: 'messages', query: {page}});
         }
     };
+
+    const itemClick = (no) => {
+        console.log(no);
+        router.push({name: 'messages/no', params: {no}});
+    };
+
+    const deleteMessage = async (no) => {
+        try {
+            const response = await apiClient.delete(`/messages/${no}`);
+
+            if (response.status === 200) {
+                alert('정상적으로 삭제되었습니다.');
+
+                fetchMessages(pageInfo.currentPage, pageInfo.currentTab);
+            }
+        } catch (error)  {
+
+        }
+    }
 
     // 이미 마운트 된 컴포넌트는 URI가 변경되었다고 해서 다시 마운트 되지 않는다.
     // 관찰 속성을 사용해서 currentRoute 변경이 감지되면 하위 컴포넌트를 다시 렌더링하도록 한다.

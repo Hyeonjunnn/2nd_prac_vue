@@ -45,14 +45,22 @@
     //   - await는 async 함수 내에서만 작성할 수 있고 비동기 작업의 완료를 기다린다.
     const fetchTeams = async (page) => {
         try {
-            const response = await apiClient.get(`/team?page=${page-1}&size=10`);
+            const response = await apiClient.get(`/team?page=${page-1}&size=10&userNo=6`);
 
+            console.log(response);
             teams.value = response.data.content;
             pageInfo.totalCount = response.data.totalElements;
             pageInfo.listLimit = 10;
         } catch (error) {
-            
-            console.log(error);
+            if (error.response.dat.code === 403) {
+            }
+            if (error.response.data.code === 404) {
+                alert(error.response.data.message);
+
+                router.push({name: 'teams'});
+            } else {
+                alert('에러가 발생했습니다.');
+            }
         }
     }
 
@@ -61,6 +69,26 @@
             router.push({name: 'teams', query: {page}});
         }
     };
+
+    const itemClick = (no) => {
+        router.push({name: 'teams/no', params: {no}})
+    };
+
+    const deleteTeams = async (no) => {
+        try {
+            const response = await apiClient.delete(
+                `/team/${no}/setting/delete`
+            );
+
+            if (response.data.code === 200) {
+                alert('정상적으로 삭제되었습니다.');
+
+                fetchTeams(pageInfo.currentPage);
+            }
+        } catch (error) {
+
+        }
+    }
 
     // 이미 마운트 된 컴포넌트는 URI가 변경되었다고 해서 다시 마운트 되지 않는다.
     // 관찰 속성을 사용해서 currentRoute 변경이 감지되면 하위 컴포넌트를 다시 렌더링하도록 한다.

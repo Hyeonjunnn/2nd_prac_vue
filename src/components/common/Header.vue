@@ -37,9 +37,6 @@
                 <RouterLink class="nav-link" :to="{name: 'messages'}">쪽지 목록 조회</RouterLink>
             </li>
             <li class="nav-item">
-                <RouterLink class="nav-link" :to="{name: 'messages/no', params: {no: '033'}}">쪽지 상세 조회</RouterLink>
-            </li>
-            <li class="nav-item">
                 <RouterLink class="nav-link" :to="{name: 'messages/add'}">쪽지 등록</RouterLink>
             </li>
             <!-- 프로젝트 -->

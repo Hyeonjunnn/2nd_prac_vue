@@ -10,7 +10,6 @@
     import apiClient from '@/api';
     import { onMounted, reactive, ref, watch } from 'vue';
     import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
-    // import DepartmentTable from '@/components/tables/DepartmentTable.vue';
     import ProjectTable from '@/components/tables/ProjectTable.vue';
     import Pagination from '@/components/common/Pagination.vue';
 
@@ -45,7 +44,7 @@
     //   - await는 async 함수 내에서만 작성할 수 있고 비동기 작업의 완료를 기다린다.
     const fetchProjects = async (page) => {
         try {
-            const response = await apiClient.get(`/project?page=${page - 1}&size=10`);
+            const response = await apiClient.get(`/project/search?page=${page - 1}&size=10`);
 
             projects.value = response.data.content;
             pageInfo.totalCount = response.data.totalElements;
@@ -62,6 +61,27 @@
         }
     };
 
+    const itemClick = (no) => {
+        router.push({name: 'project/no', params: {no}})
+    };
+
+    const deleteProject = async (no) => {
+        console.log(no);
+
+        try {
+            const response = await apiClient.delete(
+                `/project/${no}`
+            );
+
+            if (response.data.code === 200) {
+                alert('정상적으로 삭제되었습니다.');
+
+                fetchProjects(pageInfo.currentPage);
+            }
+        } catch (error) {
+
+        }
+    }
     // 이미 마운트 된 컴포넌트는 URI가 변경되었다고 해서 다시 마운트 되지 않는다.
     // 관찰 속성을 사용해서 currentRoute 변경이 감지되면 하위 컴포넌트를 다시 렌더링하도록 한다.
     // watch(currentRoute, () => {
