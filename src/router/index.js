@@ -15,13 +15,34 @@ import { createRouter, createWebHistory } from 'vue-router'
 // 지연 로딩(Lazy Loading) 적용
 // 지연 로딩은 컴포넌트가 이용되는 시점에 컴포넌트 및 관련된 모듈을 웹 서버로부터 로딩하는 방법이다.
 const AuthLayout = () => import('@/layout/AuthLayout.vue');
-const BaseLayout = () => import('@/layout/BaseLayout.vue');
 const Login = () => import('@/views/auth/Login.vue');
+// 404 NotFound
 const NotFound = () => import('@/views/common/NotFound.vue');
+// Layout
+const BaseLayout = () => import('@/layout/BaseLayout.vue');
+
+// Home
+const Home = () => import('@/views/Home.vue');
+
+// Department
 const AddDepartment = () => import('@/views/department/AddDepartment.vue');
 const DepartmentDetail = () => import('@/views/department/DepartmentDetail.vue');
 const Departments = () => import('@/views/department/Departments.vue');
-const Home = () => import('@/views/Home.vue');
+
+// Message
+const AddMessage = () => import('@/views/message/AddMessage.vue');
+const MessageDetail = () => import('@/views/message/MessageDetail.vue');
+const Messages = () => import('@/views/message/Messages.vue');
+
+// Project
+const AddProject = () => import('@/views/project/AddProject.vue');
+const ProjectDetail = () => import('@/views/project/ProjectDetail.vue');
+const Projects = () => import('@/views/project/Projects.vue');
+
+// Team
+const AddTeam = () => import('@/views/team/AddTeam.vue');
+const TeamDetail = () => import('@/views/team/TeamDetail.vue');
+const Teams = () => import('@/views/team/Teams.vue');
 
 const router = createRouter({
   // 라우터가 사용할 라우팅 모드 지정 (HTML 5 모드)
@@ -51,6 +72,7 @@ const router = createRouter({
           name: 'home', 
           component: Home 
         },
+        // departments
         { 
           path: 'departments', 
           name: 'departments', 
@@ -65,6 +87,54 @@ const router = createRouter({
           path: 'departments/add', 
           name: 'departments/add', 
           component: AddDepartment 
+        },
+        // messages
+        {
+          path: 'messages',
+          name: 'messages',
+          component: Messages
+        },
+        {
+          path: 'messages/:no',
+          name: 'messages/no',
+          component: MessageDetail
+        },
+        {
+          path: 'messages/add',
+          name: 'messages/add',
+          component: AddMessage
+        },
+        // projects
+        {
+          path: 'projects',
+          name: 'projects',
+          component: Projects
+        },
+        {
+          path: 'projects/:no',
+          name: 'projects/no',
+          component: ProjectDetail
+        },
+        {
+          path: 'projects/add',
+          name: 'projects/add',
+          component: AddProject
+        },
+        // teams
+        {
+          path: 'teams',
+          name: 'teams',
+          component: Teams
+        },
+        {
+          path: 'teams/:no',
+          name: 'teams/no',
+          component: TeamDetail
+        },
+        {
+          path: 'teams/add',
+          name: 'teams/add',
+          component: AddTeam
         },
       ]
     },

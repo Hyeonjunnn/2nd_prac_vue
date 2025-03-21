@@ -19,7 +19,7 @@ export const useAuthStore = defineStore('auth', () => {
     // 로그인 처리
     const login = async (loginData) => {
         try {
-            const response = await apiClient.post('/api/v1/auth/login', loginData);
+            const response = await apiClient.post('/auth/login', loginData);
 
             if(response.status === 200) {
                 const parseToken = parseJwt(response.data.accessToken);
@@ -70,7 +70,7 @@ export const useAuthStore = defineStore('auth', () => {
                 return;
             }
 
-            const response = await apiClient.post('/api/v1/auth/logout');
+            const response = await apiClient.post('/auth/logout');
 
             if (response.status === 204) {
                 logoutUser();

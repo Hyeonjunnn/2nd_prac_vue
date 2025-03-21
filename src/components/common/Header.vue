@@ -20,17 +20,47 @@
                 -->
                 <RouterLink class="nav-link" :to="{name: 'home'}">HOME</RouterLink>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item"> -->
                 <!-- <RouterLink to="/departments">학과 목록 조회</RouterLink> -->
-                <RouterLink class="nav-link" :to="{name: 'departments'}">학과 목록 조회</RouterLink>
-            </li>
-            <li class="nav-item">
+                <!-- <RouterLink class="nav-link" :to="{name: 'departments'}">학과 목록 조회</RouterLink> -->
+            <!-- </li> -->
+            <!-- <li class="nav-item"> -->
                 <!-- <RouterLink to="/departments/1">학과 상세 조회</RouterLink> -->
-                <RouterLink class="nav-link" :to="{name: 'departments/no', params: {no: '033'}}">학과 상세 조회</RouterLink>
+                <!-- <RouterLink class="nav-link" :to="{name: 'departments/no', params: {no: '033'}}">학과 상세 조회</RouterLink> -->
+            <!-- </li> -->
+            <!-- <li class="nav-item"> -->
+                <!-- <RouterLink to="/departments/add">학과 등록</RouterLink> -->
+                <!-- <RouterLink class="nav-link" :to="{name: 'departments/add'}">학과 등록</RouterLink> -->
+            <!-- </li> -->
+            <!-- 쪽지 -->
+            <li class="nav-item">
+                <RouterLink class="nav-link" :to="{name: 'messages'}">쪽지 목록 조회</RouterLink>
             </li>
             <li class="nav-item">
-                <!-- <RouterLink to="/departments/add">학과 등록</RouterLink> -->
-                <RouterLink class="nav-link" :to="{name: 'departments/add'}">학과 등록</RouterLink>
+                <RouterLink class="nav-link" :to="{name: 'messages/no', params: {no: '033'}}">쪽지 상세 조회</RouterLink>
+            </li>
+            <li class="nav-item">
+                <RouterLink class="nav-link" :to="{name: 'messages/add'}">쪽지 등록</RouterLink>
+            </li>
+            <!-- 프로젝트 -->
+            <li class="nav-item">
+                <RouterLink class="nav-link" :to="{name: 'projects'}">프로젝트 목록 조회</RouterLink>
+            </li>
+            <li class="nav-item">
+                <RouterLink class="nav-link" :to="{name: 'projects/no', params: {no: '033'}}">프로젝트 상세 조회</RouterLink>
+            </li>
+            <li class="nav-item">
+                <RouterLink class="nav-link" :to="{name: 'projects/add'}">프로젝트 등록</RouterLink>
+            </li>
+            <!-- 팀 -->
+            <li class="nav-item">
+                <RouterLink class="nav-link" :to="{name: 'teams'}">팀 목록 조회</RouterLink>
+            </li>
+            <li class="nav-item">
+                <RouterLink class="nav-link" :to="{name: 'teams/no', params: {no: '033'}}">팀 상세 조회</RouterLink>
+            </li>
+            <li class="nav-item">
+                <RouterLink class="nav-link" :to="{name: 'teams/add'}">팀 등록</RouterLink>
             </li>
         </ul>
         <div class="col-md-3 text-end">
