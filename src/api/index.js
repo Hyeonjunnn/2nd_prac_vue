@@ -5,9 +5,10 @@ import axios from "axios";
 //  - HTTP 기반 통신을 지원하는 자바스크립트 라이브러리이다.
 //  - 브라우저 호환성, JSON 자동 변환 기능 등의 장점을 가지고 있다.
 const apiClient = axios.create({
-    baseURL: 'http://localhost:8087',
+    baseURL: import.meta.env.VITE_APP_API_BASE_URL,
     timeout: 2000
 });
+
 
 // Axios 인터셉터
 //  - 요청(request) 또는 응답(response)이 처리되기 전에 가로채서 특정 로직을 수행하도록 하는 기능이다.
